@@ -1,7 +1,7 @@
 <script setup>
 </script>
 
-<template>
+<template class="bg-green-200">
     <div>
         LOG
     </div>
