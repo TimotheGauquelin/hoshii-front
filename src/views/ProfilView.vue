@@ -9,6 +9,9 @@
     <UserCard name="Timothé GAUQUELIN" birthday="5 Mai 1994"/>
     <div class="mt-2 p-2 bg-green-200 rounded ">
         <p>Ma Liste :</p>
-        <PresentList :presentList="listPresent" />
+        <div v-for="list of listPresent" class="mb-2 p-2 rounded bg-red-200">
+            <PresentList :list="list" />
+        </div>
     </div>
+
 </template>
