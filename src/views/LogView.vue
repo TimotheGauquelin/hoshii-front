@@ -32,8 +32,8 @@
 
 </script>
 
-<template class="bg-green-200">
-    <section class="bg-gray-50 dark:bg-gray-900">
+<template class="">
+    <section class="bg-gray-300 dark:bg-gray-900 min-h-screen grid">
         <div class="flex flex-col items-center justify-center px-6 py-8 mx-autolg:py-0">
             <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
                 HOSHII    
