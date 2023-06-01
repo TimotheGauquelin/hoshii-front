@@ -1,35 +1,32 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { computed } from 'vue';
-import store from '../store'
+// import { computed } from 'vue';
+// import store from '../store'
+import state from '../store/state.js';
+
 import HomeView from '../views/HomeView.vue';
 import ProfilView from '../views/ProfilView.vue';
 import LogView from '../views/LogView.vue';
 
-const profilIsLog = computed(() => store.state.profil.isLog)
+const routes = [
+    { path: '/home', component: HomeView },
+    { path: '/guest', name: "guest", component: LogView },
+    { path: "/user/:id", name: "profil", component: ProfilView},
+]
 
-const profilIsLogRoutes = [
-    {
-        path: "/",
-        name: "home",
-        component: HomeView
-    },
-    {
-        path: "/profil/:id",
-        name: "profil",
-        component: ProfilView
-    },
-];
-const profilIsNotLogRoute = [
-    {
-        path: "/log",
-        name: "log",
-        component: LogView
-    },
-];
-
-const router = createRouter({
+export const router = createRouter({
     history: createWebHistory(),
-    routes: profilIsLog ? profilIsLogRoutes : profilIsNotLogRoute
-})
+    linkActiveClass: 'active',
+    routes: routes
+});
+
+router.beforeEach(async (to) => {
+    const publicPages = ['/guest'];
+    const authRequired = !publicPages.includes(to.path);
+    const auth = state.profil.accessToken
+
+    if (authRequired && !auth) {
+        return '/guest';
+    }
+});
 
 export default router
