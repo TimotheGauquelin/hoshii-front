@@ -2,6 +2,14 @@ export default {
     tabsHeight: "",
     navbarHeight: "",
     profil: {
-        isLog: true,
+        accessToken: "",
+        createdAt: "",
+        email: "",
+        friends: [],
+        isActive: false,
+        isAdmin: false,
+        lists: [],
+        updatedAt: "",
+        username: "",
     }
 }

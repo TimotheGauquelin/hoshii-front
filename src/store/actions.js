@@ -5,3 +5,7 @@ export function setTabsHeight({commit}, height) {
 export function setNavbarHeight({commit}, height) {
     commit('setNavbarHeight', height)
 }
+
+export function setProfil({commit}, profil) {
+    commit('setProfil', profil)
+}

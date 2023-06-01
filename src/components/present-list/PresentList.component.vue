@@ -15,9 +15,9 @@
 </script>
 
 <template lang="">
-            <div class="flex justify-between bg-green-200 mb-2">
+            <div class="flex justify-between bg-green-200 p-2" @click="displayList">
                 <p>{{ list.listName }}</p>
-                <p @click="displayList">V</p>
+                <p >V</p>
             </div>
             <div v-if="isDisplayed" class="bg-gray-300 p-1">
                 <div class="bg-blue-200 mb-1 p-2" v-for="present of list.presents" v-if="list.presents.length > 0">
@@ -25,7 +25,7 @@
                         <p>{{ present.name }}</p>
                     </div> 
                 </div>
-                <div v-else >
+                <div v-else class="p-1">
                     <p>Aucun cadeau dans cette liste</p>
                 </div>
             </div>

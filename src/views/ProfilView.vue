@@ -3,6 +3,15 @@
     import PresentList from "../components/present-list/PresentList.component.vue"
     import UserCard from "../components/user/UserCard.component.vue"
 
+    import axiosClient from "../axiosClient.js"
+
+    // const getUser = (userId) => {
+    //     axiosClient.get(`user/${userId}`)
+    //     .then(({data}) => {
+    //         console.log(data)
+    //     })
+    // }
+
 </script>
 
 <template>
