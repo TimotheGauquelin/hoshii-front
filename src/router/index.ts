@@ -1,6 +1,4 @@
 import { createRouter, createWebHistory } from "vue-router";
-// import { computed } from 'vue';
-// import store from '../store'
 import state from '../store/state.js';
 
 import HomeView from '../views/HomeView.vue';
