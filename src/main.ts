@@ -4,4 +4,10 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
-createApp(App).use(router).use(store).mount('#app')
+import {  OhVueIcon, addIcons } from "oh-vue-icons";
+import * as FaIcons from "oh-vue-icons/icons/fa";
+
+const Fa = Object.values({ ...FaIcons });
+addIcons(...Fa);
+
+createApp(App).use(router).use(store).component("v-icon", OhVueIcon).mount('#app')
