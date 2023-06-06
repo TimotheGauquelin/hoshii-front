@@ -43,6 +43,7 @@
         .then(({data}) => {
             store.dispatch('setProfil', data)
             if (data.accessToken) {
+                localStorage.setItem("access_token", data.accessToken)
                 route.push('/home')
             }
         })
