@@ -3,42 +3,50 @@
     import PresentList from "../components/present-list/PresentList.component.vue"
     import UserCard from "../components/user/UserCard.component.vue"
 
-    import { computed,ref, onMounted } from 'vue'
+    import { computed,ref, onMounted, watch } from 'vue'
     import { useRoute } from 'vue-router';
 
     import store from '../store'
 
     import axiosClient from "../axiosClient.js"
 
-    const route = useRoute();   
-    const paramsId = route.params.id;
-
+    const route = useRoute();
+    
+    const paramsId = computed(() => route.params.id)
     const profil = computed(() => store.state.profil)
-    const inPageUser = ref({})
+
+    const inPageUserData = ref({})
+    const thisProfilIsCurrentUserPage = computed(() => String(paramsId.value) === String(profil.value._id))
 
     const getUser = (userId) => {
         axiosClient.get(`user/${userId}`)
             .then(({data}) => {
-                console.log(data)
-                inPageUser.value = data
+                inPageUserData.value = data
             })  
     }
 
     onMounted(() => {
-        getUser(paramsId)
+        getUser(paramsId.value)
+    })
+
+    watch(route, () => {
+        thisProfilIsCurrentUserPage.value,
+        getUser(paramsId.value)    
     })
 
 </script>
 
 <template>
-    <UserCard :name=inPageUser.username birthday="5 Mai 1994"/>
+    <UserCard :name=inPageUserData.username birthday="5 Mai 1994"/>
     <div class="mt-2 p-2 bg-green-200 rounded ">
         <div class="flex justify-between mb-1">
             <p>Ma Liste :</p>
             <button class="btn bg-green-300 hover:bg-green-400 rounded p-1 text-white">Ajouter une liste</button>
+            <div v-if="thisProfilIsCurrentUserPage">JE SUIS MOI</div>
+            <div v-else>CE N'EST PAS MOI</div>
         </div>
-        <div v-for="list of inPageUser.lists" class="mb-2 p-2 rounded bg-red-200">
-            <PresentList :list="list" />
+        <div :key=index v-for="(list, index) of inPageUserData.lists" class="mb-2 p-2 rounded bg-red-200">
+            <PresentList :list=list :thisProfilIsCurrentUserPage="thisProfilIsCurrentUserPage"/>
         </div>
     </div>
 

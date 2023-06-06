@@ -11,10 +11,9 @@
 
     const emit = defineEmits(['setData'])
 
-    const setData = (value) => {
-        console.log(value)
-        
-    }
+    // const setData = (value) => {
+    //     console.log(value)
+    // }
 
 </script>
 <template>
