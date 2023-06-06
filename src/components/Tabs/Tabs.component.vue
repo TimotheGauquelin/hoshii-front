@@ -6,6 +6,7 @@
     
     const props = defineProps({
         getTabsHeight: Function,
+        profil: Object,
     })
 
     const tabsHeight = ref(0)
@@ -25,6 +26,7 @@
     class="flex list-none flex-row border-b-0 pl-0 grid grid-cols-12 bg-white"
     role="tablist">
             <Tab tabName="Accueil" href="/home" />
-            <Tab tabName="Profil"  href="/user/123" />
+            <Tab tabName="Profil"  :href='"/user/" + profil._id' />
+            <Tab tabName="Friends"  href="/friends" />
     </ul>
 </template>
