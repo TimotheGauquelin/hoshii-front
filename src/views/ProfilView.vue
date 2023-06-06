@@ -25,6 +25,30 @@
             })  
     }
 
+    const addNewList = () => {
+        console.log("ADD LIST")
+    }
+
+    const addNewPresent = () => {
+        console.log("ADD PRESENT")
+    }
+
+    const deleteList = () => {
+        console.log("DELETE LIST")
+    }
+
+    const deletePresent = () => {
+        console.log("DELETE PRESENT")
+    }
+
+    const updateList = () => {
+        console.log("UPDATE LIST")
+    }
+
+    const updatePresent = (id) => {
+        console.log("UPDATE PRESENT" + id)
+    }
+
     onMounted(() => {
         getUser(paramsId.value)
     })
@@ -46,7 +70,16 @@
             <div v-else>CE N'EST PAS MOI</div>
         </div>
         <div :key=index v-for="(list, index) of inPageUserData.lists" class="mb-2 p-2 rounded bg-red-200">
-            <PresentList :list=list :thisProfilIsCurrentUserPage="thisProfilIsCurrentUserPage"/>
+            <PresentList 
+                :list=list 
+                :thisProfilIsCurrentUserPage="thisProfilIsCurrentUserPage" 
+                @addNewList="addNewList"
+                @addNewPresent="addNewPresent"
+                @deleteList="deleteList"
+                @deletePresent="deletePresent"
+                @updateList="updateList"
+                @updatePresent="updatePresent"
+            />
         </div>
     </div>
 
