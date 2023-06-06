@@ -3,7 +3,7 @@
   import store from './store'
   import Tabs from './components/Tabs/Tabs.component.vue'
 
-  const profilIsLog = computed(() => store.state.profil.accessToken)
+  const profil = computed(() => store.state.profil)
   // const tabsHeight = computed(() => store.state.tabsHeight)
   const tabsHeight = ref(47)
 
@@ -18,10 +18,11 @@
 </script>
 
 <template>
-  <div :class="`${profilIsLog && 'h-screen overflow-hidden'} bg-blue-200`" :style="{minHeight: `calc(100vh)`}">
-    <main :class="`bg-red-200 ${profilIsLog ? 'overflow-y-auto' : 'overflow-hidden'} text-justify`" :style="{minHeight: `calc(100vh ${profilIsLog && `- ${tabsHeight}px`})`}">
+  <div :class="`${profil.accessToken && 'h-screen overflow-hidden'} bg-blue-200`" :style="{minHeight: `calc(100vh)`}">
+    <main :class="`bg-red-200 ${profil.accessToken ? 'overflow-y-auto' : 'overflow-hidden'} text-justify`" 
+          :style="{minHeight: `calc(100vh ${profil.accessToken && `- ${tabsHeight}px`})`}">
       <router-view />
     </main>
-    <Tabs v-if="profilIsLog" :getTabsHeight="getTabsHeight" />
+    <Tabs v-if="profil.accessToken" :getTabsHeight="getTabsHeight" :profil=profil />
   </div>
 </template>
