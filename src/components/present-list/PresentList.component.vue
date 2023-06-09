@@ -1,11 +1,17 @@
 <script setup>
 
-    import { ref } from "vue"
+    import { ref, watch } from "vue"
+    import { useRoute } from 'vue-router';
+    import PresentCard from './PresentCard.component.vue'
+
+    const route = useRoute()
 
     const props = defineProps({
+        userId: String,
         list: Object,
         thisProfilIsCurrentUserPage: Boolean,
     }) 
+
     
     const emit = defineEmits(['addNewList', 'addNewPresent', 'deleteList', 'deletePresent', 'updateList', 'updatePresent'])
     
@@ -26,28 +32,14 @@
                 <div v-if="thisProfilIsCurrentUserPage" class="p-1 grid grid-cols-12" >
                     <button class="bg-green-300 col-span-4 p-1 rounded text-white w-full" @click="emit('addNewPresent')">Ajouter cadeau</button>
                     <button class="bg-yellow-300 col-span-4 p-1 rounded text-white w-full" @click="emit('UpdateList')">Modifier liste</button>
-                    <button class="bg-red-300 col-span-4 p-1 rounded text-white w-full" @click="emit('deleteList')">Supprimer liste</button>
+                    <button class="bg-red-300 col-span-4 p-1 rounded text-white w-full" @click="emit('deleteList', userId, list._id)">Supprimer liste</button>
                 </div>
-                <div key="index" class="bg-blue-200 mb-1 p-2" v-for="(present, index) of list.presents" v-if="list.presents.length > 0">
-                    <div class="">
-                        
-                        <div class="flex justify-between mb-1">
-                            <p class="font-bold">{{ present.label }}</p>
-                            <div v-if="thisProfilIsCurrentUserPage">
-                                <button class="btn bg-yellow-300 hover:bg-yellow-400 text-white p-1 rounded mr-1" @click="emit('updatePresent', present.label)">
-                                    <v-icon name="fa-pen"/>
-                                </button>
-                                <button class="btn bg-red-300 hover:bg-red-400 text-white p-1 rounded" @click="emit('deletePresent')">
-                                    <v-icon name="fa-trash-alt"/>
-                                </button>
-                            </div>
-                            <div v-else>
-                                <input type="checkbox" name="" id="">
-                            </div>
-                        </div>
-                        <p v-if="!thisProfilIsCurrentUserPage">{{`Ce cadeau est pris par : `}}</p>
-                    </div>
-                    
+                <div class="bg-blue-200 mb-1 p-2" v-for="(present) of list.presents" v-if="list.presents.length > 0">
+                    <PresentCard 
+                        :index=present._id 
+                        :thisProfilIsCurrentUserPage=thisProfilIsCurrentUserPage
+                        :present=present 
+                        @deletePresent="emit('deletePresent', userId, list._id, present._id)"/>  
                 </div>
                 <div v-else class="p-1">
                     <p>Aucun cadeau dans cette liste</p>
