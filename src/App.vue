@@ -8,12 +8,6 @@
   // const tabsHeight = computed(() => store.state.tabsHeight)
   const tabsHeight = ref(47)
 
-  const modalToggle = ref(false)
-
-  const modalDisplayer = () => {
-      modalToggle.value = !modalToggle.value
-  }
-
   const getTabsHeight = (height) => {
       store.dispatch('setTabsHeight', height)
   }
@@ -25,15 +19,13 @@
 </script>
 
 <template>
-  <div class="relative">
+  <div class="">
     <div :class="`${profil.accessToken && 'h-screen overflow-hidden'} bg-blue-200`" :style="{minHeight: `calc(100vh)`}">
-      <main :class="`bg-red-200 ${profil.accessToken ? 'overflow-y-auto' : 'overflow-hidden'} text-justify`" 
+      <main :class="`bg-red-200 ${profil.accessToken ? 'overflow-y-auto' : 'overflow-hidden'} text-justify relative`" 
             :style="{minHeight: `calc(100vh ${profil.accessToken && `- ${tabsHeight}px`})`}">
-            <button @click="modalDisplayer">TEST {{ modalToggle }}</button>
         <router-view />
       </main>
-      <Tabs v-if="profil.accessToken" :getTabsHeight="getTabsHeight" :profil=profil :modalToggle=modalToggle />
+      <Tabs v-if="profil.accessToken" :getTabsHeight="getTabsHeight" :profil=profil />
     </div>
-    <Modal :modalToggle=modalToggle @modalDisplayer=modalDisplayer />
   </div>
 </template>

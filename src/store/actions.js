@@ -9,3 +9,7 @@ export function setNavbarHeight({commit}, height) {
 export function setProfil({commit}, profil) {
     commit('setProfil', profil)
 }
+
+export function setModalToggle({commit}) {
+    commit('setModalToggle')
+}

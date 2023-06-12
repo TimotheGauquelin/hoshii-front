@@ -1,4 +1,5 @@
 export default {
+    modalToggle: false,
     tabsHeight: "",
     navbarHeight: "",
     profil: {

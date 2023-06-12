@@ -9,3 +9,7 @@ export function setNavbarHeight(state, height) {
 export function setProfil(state, profil) {
     state.profil = profil;
 }
+
+export function setModalToggle(state) {
+    state.modalToggle = !state.modalToggle;
+}
