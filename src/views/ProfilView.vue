@@ -4,6 +4,7 @@
     import Modal from "../components/modal/Modal.component.vue"
     import AddListForm from "../components/forms/AddListForm.component.vue"
     import AddPresentForm from "../components/forms/AddPresentForm.component.vue"
+    import UpdateListForm from "../components/forms/UpdateListForm.component.vue"
 
     import { computed,ref, onMounted, watch, getCurrentInstance, onUpdated } from 'vue'
     import { useRoute } from 'vue-router';
@@ -31,14 +32,18 @@
     const addNewListForm = ref({
         label: ""
     })
-
+    
     const addNewPresentForm = ref({
         label: "",
         desc: "",
         image: "",
         price: 0
     })
-  
+    
+    const updateNewListForm = ref({
+        label: clickedList.value.label
+    })
+
     const modalDisplayer = () => {
         store.dispatch('setModalToggle')
     }
@@ -55,7 +60,6 @@
     }
 
     const addNewList = (userId) => {
-        console.log(userId)
         axiosClient.post(`user/${userId}/newList`, addNewListForm.value)
             .then((res) => {
                 modalDisplayer()
@@ -69,7 +73,6 @@
     const addNewPresent = (userId, listId) => {
         axiosClient.post(`user/${userId}/list/${listId}/newPresent`, addNewPresentForm.value)
             .then((res) => {
-                console.log(res)
                 modalDisplayer()
                 addNewPresentForm.value = {
                     label: "",
@@ -97,17 +100,10 @@
 
     }
 
-    const updateList = () => {
-        axiosClient.put(`user/${userId}/list/${listId}/updateList`, updateList.value)
+    const updateList = (userId, listId) => {
+        axiosClient.put(`user/${userId}/list/${listId}/updateList`, clickedList.value)
             .then((res) => {
-                console.log(res)
                 modalDisplayer()
-                addNewPresentForm.value = {
-                    label: "",
-                    image: "",
-                    price: 0,
-                    desc: "",
-                }
                 getUser(userId)
             })  
     }
@@ -164,6 +160,12 @@
                 :present=addNewPresentForm 
                 :userId=profil._id 
                 :clickedList=clickedList 
+            />
+            <UpdateListForm 
+                v-if="whatFunctionForModal === 'updateListForm'"
+                @updateList="updateList"
+                :list=clickedList  
+                :userId=profil._id 
             />
         </Modal>
     </div>

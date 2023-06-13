@@ -31,7 +31,7 @@
             <div v-if="isDisplayed" class="bg-gray-300 p-1">
                 <div v-if="thisProfilIsCurrentUserPage" class="p-1 grid grid-cols-12" >
                     <button class="bg-green-300 col-span-4 p-1 rounded text-white w-full" @click="emit('whatFunctionForModalToggle', 'addPresentForm') ; emit('updateClickList', list) ; emit('modalDisplayer')">Ajouter cadeau</button>
-                    <button class="bg-yellow-300 col-span-4 p-1 rounded text-white w-full" @click="emit('UpdateList')">Modifier liste</button>
+                    <button class="bg-yellow-300 col-span-4 p-1 rounded text-white w-full" @click="emit('whatFunctionForModalToggle', 'updateListForm') ; emit('updateClickList', list) ; emit('modalDisplayer')">Modifier liste</button>
                     <button class="bg-red-300 col-span-4 p-1 rounded text-white w-full" @click="emit('deleteList', userId, list._id)">Supprimer liste</button>
                 </div>
                 <div class="bg-blue-200 mb-1 p-2" v-for="(present) of list.presents" v-if="list.presents.length > 0">
