@@ -1,5 +1,4 @@
 <script setup>
-    import listPresent from "../mock/list.ts"
     import PresentList from "../components/present-list/PresentList.component.vue"
     import UserCard from "../components/user/UserCard.component.vue"
     import Modal from "../components/modal/Modal.component.vue"
@@ -23,20 +22,28 @@
     const thisProfilIsCurrentUserPage = computed(() => String(paramsId.value) === String(profil.value._id))
 
     const modalToggle = computed(() => store.state.modalToggle)
+    var whatFunctionForModal = "addListForm"
+
+    const whatFunctionForModalToggle = (label) => {
+        whatFunctionForModal = label
+    }
 
     const addNewListForm = ref({
         label: ""
     })
 
     const addNewPresentForm = ref({
-        label: ""
+        label: "",
+        desc: "",
+        image: "",
+        price: 0
     })
   
     const modalDisplayer = () => {
         store.dispatch('setModalToggle')
     }
 
-    const buttonInsider = (list) => {
+    const updateClickList = (list) => {
         clickedList.value = list
     }
     
@@ -65,7 +72,10 @@
                 console.log(res)
                 modalDisplayer()
                 addNewPresentForm.value = {
-                    label: ""
+                    label: "",
+                    image: "",
+                    price: 0,
+                    desc: "",
                 }
                 getUser(userId)
             })  
@@ -88,7 +98,18 @@
     }
 
     const updateList = () => {
-        console.log("UPDATE LIST")
+        axiosClient.put(`user/${userId}/list/${listId}/updateList`, updateList.value)
+            .then((res) => {
+                console.log(res)
+                modalDisplayer()
+                addNewPresentForm.value = {
+                    label: "",
+                    image: "",
+                    price: 0,
+                    desc: "",
+                }
+                getUser(userId)
+            })  
     }
 
     const updatePresent = (id) => {
@@ -110,7 +131,7 @@
     <div class="mt-2 p-2 bg-green-200 rounded ">
         <div class="flex justify-between mb-1">
             <p>Ma Liste :</p>
-            <button v-if="thisProfilIsCurrentUserPage" class="btn bg-green-300 hover:bg-green-400 rounded p-1 text-white" @click="modalDisplayer">Ajouter une liste</button>
+            <button v-if="thisProfilIsCurrentUserPage" class="btn bg-green-300 hover:bg-green-400 rounded p-1 text-white" @click="whatFunctionForModalToggle('addListForm'); modalDisplayer();">Ajouter une liste</button>
             <div v-if="thisProfilIsCurrentUserPage">JE SUIS MOI</div>
             <div v-else>CE N'EST PAS MOI</div>
         </div>
@@ -124,13 +145,26 @@
                 @updateList="updateList"
                 @updatePresent="updatePresent"
                 @modalDisplayer="modalDisplayer"
-                @buttonInsider=buttonInsider
+                @updateClickList=updateClickList
+                @whatFunctionForModalToggle="whatFunctionForModalToggle"
             />  
            
         </div>    
-        <Modal :modalToggle=modalToggle @modalDisplayer=modalDisplayer>
-            <!-- <AddListForm @addNewList="addNewList" :list=addNewListForm  :userId=profil._id /> -->
-            <AddPresentForm @addNewPresent="addNewPresent" :present=addNewPresentForm :userId=profil._id :clickedList=clickedList />
+        <Modal :modalToggle=modalToggle @modalDisplayer=modalDisplayer >
+            <AddListForm 
+                v-if="whatFunctionForModal === 'addListForm'"
+                @addNewList="addNewList"
+                :list=addNewListForm  
+                :userId=profil._id 
+            />
+            <AddPresentForm 
+                v-if="whatFunctionForModal === 'addPresentForm'"
+                @addNewPresent="addNewPresent" 
+                @whatFunctionForModalToggle="whatFunctionForModalToggle"
+                :present=addNewPresentForm 
+                :userId=profil._id 
+                :clickedList=clickedList 
+            />
         </Modal>
     </div>
 
