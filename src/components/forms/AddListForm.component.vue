@@ -6,11 +6,11 @@
         userId: String
     })
 
-    const emit = defineEmits(['addNewList'])
+    const emit = defineEmits(['addNewList', 'whatFunctionForModalToggle'])
 
 </script>
 <template>
-        <form class="space-y-4 md:space-y-6" method="post" @submit.prevent="emit('addNewList', userId)">
+        <form class="space-y-4 md:space-y-6" method="post" @submit.prevent="emit('whatFunctionForModalToggle', 'addListForm'); emit('addNewList', userId)">
             <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                 Add a list
             </h1>

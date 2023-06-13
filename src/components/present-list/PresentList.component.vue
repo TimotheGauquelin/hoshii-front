@@ -13,7 +13,7 @@
     }) 
 
     
-    const emit = defineEmits(['deleteList', 'deletePresent', 'updateList', 'updatePresent', "modalDisplayer", "buttonInsider"])
+    const emit = defineEmits(['deleteList', 'deletePresent', 'updateList', 'updatePresent', "modalDisplayer", "updateClickList", "whatFunctionForModalToggle"])
     
     const isDisplayed = ref(false)
 
@@ -30,7 +30,7 @@
             </div>
             <div v-if="isDisplayed" class="bg-gray-300 p-1">
                 <div v-if="thisProfilIsCurrentUserPage" class="p-1 grid grid-cols-12" >
-                    <button class="bg-green-300 col-span-4 p-1 rounded text-white w-full" @click="emit('buttonInsider', list) ; emit('modalDisplayer')">Ajouter cadeau</button>
+                    <button class="bg-green-300 col-span-4 p-1 rounded text-white w-full" @click="emit('whatFunctionForModalToggle', 'addPresentForm') ; emit('updateClickList', list) ; emit('modalDisplayer')">Ajouter cadeau</button>
                     <button class="bg-yellow-300 col-span-4 p-1 rounded text-white w-full" @click="emit('UpdateList')">Modifier liste</button>
                     <button class="bg-red-300 col-span-4 p-1 rounded text-white w-full" @click="emit('deleteList', userId, list._id)">Supprimer liste</button>
                 </div>

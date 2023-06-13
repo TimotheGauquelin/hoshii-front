@@ -1,6 +1,4 @@
 <script setup>
-    import { defineProps, defineEmits } from 'vue'
-
     import Input from '../inputs/Input.component.vue'
 
     const props = defineProps({

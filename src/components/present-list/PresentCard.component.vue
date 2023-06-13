@@ -8,6 +8,12 @@
 
     const emit = defineEmits(['deletePresent'])
 
+    const displayedCardDesc = ref(false)
+
+    const toggleDisplayedCardDesc = () => {
+        displayedCardDesc.value = !displayedCardDesc.value
+    }
+
     const forceRerender = () => {
         console.log(props.present._id)
         props.present._id += 1;
@@ -19,7 +25,7 @@
     <div :key=present._id class="">
         <div class="flex justify-between mb-1">       
             <p class="font-bold">{{ present.label }}</p>
-            <div v-if="thisProfilIsCurrentUserPage">
+            <div v-if="thisProfilIsCurrentUserPage"  >
                 <button class="btn bg-yellow-300 hover:bg-yellow-400 text-white p-1 rounded mr-1" @click="emit('updatePresent', present.label)">
                     <v-icon name="fa-pen"/>
                 </button>
@@ -30,6 +36,11 @@
             <div v-else>
                 <input type="checkbox" name="" id="">
             </div>
+            
+        </div>
+        <div class="">
+            <p><b>Description:</b> {{ present.desc ? present.desc : "Aucune description" }}</p>
+            <p><b>Price:</b> {{ present.price ? present.price : "Aucun prix défini" }}</p>
         </div>
         <p v-if="!thisProfilIsCurrentUserPage">{{`Ce cadeau est pris par : `}}</p>
     </div>

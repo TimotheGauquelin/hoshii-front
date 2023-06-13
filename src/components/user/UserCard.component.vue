@@ -1,5 +1,4 @@
 <script setup>
-
     const props = defineProps({
         name: String,
         birthday: String
