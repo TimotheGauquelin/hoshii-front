@@ -3,10 +3,11 @@
 
     const props = defineProps({
         thisProfilIsCurrentUserPage: Boolean,
+        list: Object,
         present: Object,
     })
 
-    const emit = defineEmits(['deletePresent'])
+    const emit = defineEmits(['deletePresent', 'displayUpdatePresentModal'])
 
     const displayedCardDesc = ref(false)
 
@@ -14,22 +15,16 @@
         displayedCardDesc.value = !displayedCardDesc.value
     }
 
-    const forceRerender = () => {
-        console.log(props.present._id)
-        props.present._id += 1;
-        console.log(props.present._id)
-    };
-
 </script>
 <template>
     <div :key=present._id class="">
         <div class="flex justify-between mb-1">       
             <p class="font-bold">{{ present.label }}</p>
             <div v-if="thisProfilIsCurrentUserPage"  >
-                <button class="btn bg-yellow-300 hover:bg-yellow-400 text-white p-1 rounded mr-1" @click="emit('updatePresent', present.label)">
+                <button class="btn bg-yellow-300 hover:bg-yellow-400 text-white p-1 rounded mr-1" @click="emit('displayUpdatePresentModal')">
                     <v-icon name="fa-pen"/>
                 </button>
-                <button class="btn bg-red-300 hover:bg-red-400 text-white p-1 rounded" @click="emit('deletePresent'); forceRerender()">
+                <button class="btn bg-red-300 hover:bg-red-400 text-white p-1 rounded" @click="emit('deletePresent');">
                     <v-icon name="fa-trash-alt"/>
                 </button>
             </div>

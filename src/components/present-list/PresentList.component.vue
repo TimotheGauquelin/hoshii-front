@@ -12,8 +12,7 @@
         thisProfilIsCurrentUserPage: Boolean,
     }) 
 
-    
-    const emit = defineEmits(['deleteList', 'deletePresent', 'updateList', 'updatePresent', "modalDisplayer", "updateClickList", "whatFunctionForModalToggle"])
+    const emit = defineEmits(['deleteList', "displayAddListModal", "displayAddPresentModal", "displayUpdateListModal", "displayUpdatePresentModal"])
     
     const isDisplayed = ref(false)
 
@@ -24,25 +23,35 @@
 </script>
 
 <template>
-            <div class="flex justify-between bg-green-200 p-2" @click="displayList">
-                <p>{{ props.list.label }}</p>
+            <div class="flex justify-between bg-green-200 p-2" @click="displayList" data-cy="list-tile">
+                <p data-cy="list-name">{{ props.list.label }}</p>
                 <v-icon name="fa-angle-down" />
             </div>
             <div v-if="isDisplayed" class="bg-gray-300 p-1">
                 <div v-if="thisProfilIsCurrentUserPage" class="p-1 grid grid-cols-12" >
-                    <button class="bg-green-300 col-span-4 p-1 rounded text-white w-full" @click="emit('whatFunctionForModalToggle', 'addPresentForm') ; emit('updateClickList', list) ; emit('modalDisplayer')">Ajouter cadeau</button>
-                    <button class="bg-yellow-300 col-span-4 p-1 rounded text-white w-full" @click="emit('whatFunctionForModalToggle', 'updateListForm') ; emit('updateClickList', list) ; emit('modalDisplayer')">Modifier liste</button>
-                    <button class="bg-red-300 col-span-4 p-1 rounded text-white w-full" @click="emit('deleteList', userId, list._id)">Supprimer liste</button>
+                    <button class="bg-green-300 col-span-4 p-1 rounded text-white w-full" @click="emit('displayAddListModal', list)">Ajouter cadeau</button>
+                    <button class="bg-yellow-300 col-span-4 p-1 rounded text-white w-full" @click="emit('displayUpdateListModal', list)">Modifier liste</button>
+                    <button 
+                      class="bg-red-300 col-span-4 p-1 rounded text-white w-full" 
+                      @click="emit('deleteList', userId, list._id)"
+                      data-cy="delete-list-btn"
+                    >
+                        Supprimer liste
+                    </button>
                 </div>
-                <div class="bg-blue-200 mb-1 p-2" v-for="(present) of list.presents" v-if="list.presents.length > 0">
-                    <PresentCard 
-                        :index=present._id 
-                        :thisProfilIsCurrentUserPage=thisProfilIsCurrentUserPage
-                        :present=present 
-                        @deletePresent="emit('deletePresent', userId, list._id, present._id)"/>  
-                </div>
-                <div v-else class="p-1">
-                    <p>Aucun cadeau dans cette liste</p>
+                <div class="">
+                    <div class="bg-blue-200 mb-1 p-2" v-for="(present, presentIndex) of list.presents" v-if="list.presents.length > 0">
+                        <PresentCard 
+                            :thisProfilIsCurrentUserPage=thisProfilIsCurrentUserPage
+                            :present=present
+                            :list=list
+                            @displayUpdatePresentModal="emit('displayUpdatePresentModal', list, presentIndex)"
+                            @deletePresent="emit('deletePresent', userId, list._id, present._id)"
+                        />  
+                    </div>
+                    <div v-else class="p-1">
+                        <p>Aucun cadeau dans cette liste</p>
+                    </div>
                 </div>
             </div>
 </template>
