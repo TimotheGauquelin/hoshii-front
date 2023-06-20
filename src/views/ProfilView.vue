@@ -145,9 +145,12 @@
 </script>
 
 <template>
-    <div class="overflow-none" :style="{maxHeight: `calc(100vh ${profil.accessToken && ` - 47px`})`}" >
+    <div class="overflow-none">
     <UserCard :name=dataFromPageUser.username birthday="5 Mai 1994"/>
-    <div class="mt-2 p-2 bg-green-200 rounded" :style="{height: `calc(100vh ${profil.accessToken && ` - 118px`})`}">
+    <div 
+        class="mt-2 p-2 bg-green-200 rounded" 
+        :style="{height: `calc(100% - 72px`}"
+    >
         <div class="flex justify-between mb-1 p-1">
             <p data-cy="my-list-p">Ma Liste :</p>
             <button 
@@ -161,7 +164,7 @@
             <div v-if="thisProfilIsCurrentUserPage">JE SUIS MOI</div>
             <div v-else>CE N'EST PAS MOI</div>
         </div>
-        <div class="bg-blue-400 overflow-auto" :style="{height: `calc(100vh ${profil.accessToken && ` - 18px`})`}">
+        <div class="bg-blue-400 overflow-y-auto" :style="{height: `calc(100% - 40px`}">
             <div :key=index v-for="(list, index) of dataFromPageUser.lists" class="mb-2 p-2 rounded bg-red-200" data-cy="present-list-component">
                 <PresentList 
                     :userId=profil._id

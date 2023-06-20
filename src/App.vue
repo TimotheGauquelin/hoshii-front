@@ -33,7 +33,7 @@
       <Navbar v-if="profil.accessToken" :getNavbarHeight="getNavbarHeight"/>
       <router-view 
         :style="{height: `calc(100vh ${profil.accessToken && ` - ${tabsHeight}px - ${navbarHeight}px`} )`}"
-        class="overflow-none bg-yellow-200"
+        class="bg-yellow-200"
         data-cy="page-body"
       />
       <Tabs v-if="profil.accessToken" :getTabsHeight="getTabsHeight" :profil=profil />

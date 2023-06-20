@@ -7,7 +7,7 @@
 
 </script>
 <template>
-    <div class="bg-blue-200 p-2">
+    <div class="p-2 overflow-y-auto">
         <p>Ma liste d'amis :</p>
             <router-link 
                 :to="{ name:'user', params: {id :friend.friendId}}" 
