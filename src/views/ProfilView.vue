@@ -99,7 +99,6 @@
             .then((res) => {
                 getUser(paramsId.value)
         })
-
     }
 
     const updateList = (userId, listId) => {
@@ -171,6 +170,7 @@
                     :list=list 
                     :thisProfilIsCurrentUserPage="thisProfilIsCurrentUserPage" 
                     @deleteList="deleteList"
+                    @deletePresent="deletePresent"
                     @displayAddListModal="displayAddListModal"
                     @displayAddPresentModal="displayAddPresentModal"
                     @displayUpdateListModal="displayUpdateListModal"
