@@ -14,6 +14,8 @@ To specify the type of commit. It may be one of these four code.
 
 - <u>Code refactoring</u> : [REFACTO]
 
+- <u>Test</u> : [TEST]
+
 - <u>Charter update</u> : [DOC]
 
 ### YOUR INITIAL
