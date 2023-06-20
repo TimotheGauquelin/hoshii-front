@@ -29,8 +29,8 @@
             </div>
             <div v-if="isDisplayed" class="bg-gray-300 p-1">
                 <div v-if="thisProfilIsCurrentUserPage" class="p-1 grid grid-cols-12" >
-                    <button class="bg-green-300 col-span-4 p-1 rounded text-white w-full" @click="emit('displayAddPresentModal', list)">Ajouter cadeau</button>
-                    <button class="bg-yellow-300 col-span-4 p-1 rounded text-white w-full" @click="emit('displayUpdateListModal', list)">Modifier liste</button>
+                    <button class="bg-green-300 col-span-4 p-1 rounded text-white w-full" @click="emit('displayAddPresentModal', list)" data-cy='add-present-btn'>Ajouter cadeau</button>
+                    <button class="bg-yellow-300 col-span-4 p-1 rounded text-white w-full" @click="emit('displayUpdateListModal', list)" data-cy="update-list-btn">Modifier liste</button>
                     <button 
                       class="bg-red-300 col-span-4 p-1 rounded text-white w-full" 
                       @click="emit('deleteList', userId, list._id)"
@@ -40,7 +40,7 @@
                     </button>
                 </div>
                 <div class="">
-                    <div class="bg-blue-200 mb-1 p-2" v-for="(present, presentIndex) of list.presents" v-if="list.presents.length > 0">
+                    <div v-if="list.presents.length > 0" v-for="(present, presentIndex) of list.presents" class="bg-blue-200 mb-1 p-2" data-cy="present-component">
                         <PresentCard 
                             :thisProfilIsCurrentUserPage=thisProfilIsCurrentUserPage
                             :present=present
