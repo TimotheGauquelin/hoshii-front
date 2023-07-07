@@ -13,3 +13,7 @@ export function setProfil({commit}, profil) {
 export function setModalToggle({commit}) {
     commit('setModalToggle')
 }
+
+export function parseJWT({commit}, token) {
+    commit('parseJWT', token)
+}
