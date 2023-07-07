@@ -1,10 +1,10 @@
 import axios from 'axios'
 
-const instance = axios.create({
+const instance = (token) => { return axios.create({
     baseURL: "http://localhost:5000/api/",
     headers: {
-        Authorization : `Bearer ${localStorage.getItem("access_token") && localStorage.getItem("access_token")}`
+        Authorization : `Bearer ${token && token}`
         }
-})
+})}
 
 export default instance

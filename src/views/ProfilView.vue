@@ -55,14 +55,15 @@
     }
     
     const getUser = (userId) => {
-        axiosClient.get(`user/${userId}`)
+        axiosClient().get(`user/${userId}`)
             .then(({data}) => {
                 dataFromPageUser.value = data
             })  
     }
 
     const addNewList = (userId) => {
-        axiosClient.post(`user/${userId}/newList`, addNewListForm.value)
+        axiosClient(localStorage.getItem("access_token"))
+            .post(`user/myProfil/newList`, addNewListForm.value)
             .then((res) => {
                 modalDisplayer()
                 addNewListForm.value = {
@@ -73,7 +74,8 @@
     }
 
     const addNewPresent = (userId, listId) => {
-        axiosClient.post(`user/${userId}/list/${listId}/newPresent`, addNewPresentForm.value)
+        axiosClient(localStorage.getItem("access_token"))
+            .post(`user/myProfil/list/${listId}/newPresent`, addNewPresentForm.value)
             .then((res) => {
                 modalDisplayer()
                 addNewPresentForm.value = {
@@ -87,23 +89,33 @@
     }
 
     const deleteList = (userId, listId) => {
-        axiosClient.delete(`user/${userId}/list/${listId}`)
+        axiosClient(localStorage.getItem("access_token"))
+            .delete(`user/myProfil/list/${listId}/deletedList`)
             .then((res) => {
                 getUser(paramsId.value)
-
             })  
     }
 
     const deletePresent = (userId, listId, presentId) => {
-        axiosClient.delete(`user/${userId}/list/${listId}/present/${presentId}`)
+        axiosClient(localStorage.getItem("access_token"))
+            .delete(`user/myProfil/list/${listId}/present/${presentId}/deletedPresent`)
             .then((res) => {
                 getUser(paramsId.value)
         })
     }
 
     const updateList = (userId, listId) => {
-        console.log(userId, listId, clickedList.value)
-        axiosClient.put(`user/${userId}/list/${listId}/updateList`, clickedList.value)
+        axiosClient(localStorage.getItem("access_token"))
+            .put(`user/myProfil/list/${listId}/updatedList`, clickedList.value)
+            .then((res) => {
+                modalDisplayer()
+                getUser(userId)
+            })  
+    }
+
+    const updatePresent = (userId, listId, presentId) => {
+        axiosClient(localStorage.getItem("access_token"))
+            .put(`user/myProfil/list/${listId}/present/${presentId}/updatedPresent`, clickedList.value)
             .then((res) => {
                 modalDisplayer()
                 getUser(userId)
@@ -201,7 +213,7 @@
             />
             <UpdatePresentForm 
                 v-if="whatFunctionForModal === 'updatePresentForm'"
-                @updateList="updateList"
+                @updatePresent="updatePresent"
                 :list=clickedList  
                 :userId=profil._id 
                 :clickedPresentIndex=clickedPresentIndex

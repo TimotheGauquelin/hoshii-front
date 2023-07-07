@@ -29,7 +29,7 @@
 
     const signUp = () => {
         if(signUpForm.password === signUpForm.checkPassword) {
-            axiosClient.post('auth/register', signUpForm.value)
+            axiosClient().post('auth/register', signUpForm.value)
             .then(({data}) => {
                 isSignUp.value = false
             })  
@@ -39,7 +39,7 @@
     }
 
     const signIn = () => {
-        axiosClient.post('auth/login', signInForm.value)
+        axiosClient().post('auth/login', signInForm.value)
         .then(({data}) => {
             store.dispatch('setProfil', data)
             if (data.accessToken) {

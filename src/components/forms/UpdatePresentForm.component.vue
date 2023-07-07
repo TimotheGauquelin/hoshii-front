@@ -7,11 +7,11 @@
         clickedPresentIndex: Number, 
     })
 
-    const emit = defineEmits(['updateList'])
+    const emit = defineEmits(['updatePresent'])
 
 </script>
 <template>
-    <form class="space-y-4 md:space-y-6" method="put" @submit.prevent="emit('updateList', userId, list._id)">
+    <form class="space-y-4 md:space-y-6" method="put" @submit.prevent="emit('updatePresent', userId, list._id, clickedPresentIndex)">
         <p class="text-xl font-medium leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
             Add a present inside <b>{{ list.label }}</b>
         </p>

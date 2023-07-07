@@ -13,6 +13,8 @@
   const tabsHeight = ref(0)
   const navbarHeight = ref(0)
 
+  // const accessToken = localStorage.setItem("access_token")
+
   const getTabsHeight = (height) => {
       store.dispatch('setTabsHeight', height)
   }
@@ -25,6 +27,8 @@
       getTabsHeight(tabsHeight)
       getNavbarHeight(navbarHeight)
   })
+
+
 
 </script>
 
@@ -39,9 +43,3 @@
       <Tabs v-if="profil.accessToken" :getTabsHeight="getTabsHeight" :profil=profil />
     </div>
 </template>    
-<!-- <div :class="`${profil.accessToken && 'h-screen overflow-hidden'} bg-blue-200`" :style="{minHeight: `calc(100vh)`}">
-      <main 
-        :class="`bg-red-200 ${profil.accessToken ? 'overflow-y-auto' : 'overflow-hidden'} text-justify relative`" 
-        :style="{minHeight: `calc(100vh ${profil.accessToken && `- ${tabsHeight}px`})`}"
-        data-cy="page-body"
-      > -->
