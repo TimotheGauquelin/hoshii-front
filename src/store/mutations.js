@@ -12,10 +12,10 @@ export function setProfil(state, profil) {
 
 export function setIsAccessTokenPresent(state, accessToken) {
     if(accessToken) {
-        state.profil.accessToken = true
+        state.profil.accessTokenInStorage = true
     } else {
         localStorage.clear()
-        state.profil.accessToken = false
+        state.profil.accessTokenInStorage = false
     }
 }
 
