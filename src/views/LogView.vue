@@ -3,7 +3,6 @@
     import { useRouter } from 'vue-router';
     import store from '../store'
     import axiosClient from "../axiosClient.js"
-    import router from '../router'
     import SignUpForm from '../components/forms/SignUpForm.component.vue'
     import SignInForm from '../components/forms/SignInForm.component.vue'
 
@@ -21,7 +20,7 @@
         email: ""
     })
 
-    const route = useRouter();
+    const router = useRouter();
 
     const isSignUpToggle = () => {
         isSignUp.value = !isSignUp.value
@@ -44,7 +43,8 @@
             store.dispatch('setProfil', data)
             if (data.accessToken) {
                 localStorage.setItem("access_token", data.accessToken)
-                route.push('/home')
+                store.dispatch('setIsAccessTokenPresent', data.accessToken)
+                router.push('/home')
             }
         })
         .catch(function (error) {

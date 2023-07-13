@@ -1,9 +1,10 @@
 export default {
     modalToggle: false,
+    refreshApp: false,
     tabsHeight: "",
     navbarHeight: "",
     profil: {
-        accessToken: "",
+        accessTokenInStorage: false,
         createdAt: "",
         email: "",
         friends: [],

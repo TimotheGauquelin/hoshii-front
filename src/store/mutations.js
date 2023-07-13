@@ -10,6 +10,15 @@ export function setProfil(state, profil) {
     for(var k in profil) state.profil[k] = profil[k];
 }
 
+export function setIsAccessTokenPresent(state, accessToken) {
+    if(accessToken) {
+        state.profil.accessToken = true
+    } else {
+        localStorage.clear()
+        state.profil.accessToken = false
+    }
+}
+
 export function setModalToggle(state) {
     state.modalToggle = !state.modalToggle;
 }

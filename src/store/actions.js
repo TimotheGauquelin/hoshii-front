@@ -10,8 +10,13 @@ export function setProfil({commit}, profil) {
     commit('setProfil', profil)
 }
 
+
 export function setModalToggle({commit}) {
     commit('setModalToggle')
+}
+
+export function setIsAccessTokenPresent({commit}, accessToken) {
+    commit('setIsAccessTokenPresent', accessToken)
 }
 
 export function parseJWT({commit}, token) {
