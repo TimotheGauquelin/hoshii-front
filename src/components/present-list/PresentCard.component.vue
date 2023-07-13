@@ -3,11 +3,12 @@
 
     const props = defineProps({
         thisProfilIsCurrentUserPage: Boolean,
+        userId: String,
         list: Object,
         present: Object,
     })
 
-    const emit = defineEmits(['deletePresent', 'displayUpdatePresentModal'])
+    const emit = defineEmits(['deletePresent', 'displayUpdatePresentModal', 'takeThisPresent', 'putAPresentBackInTheList'])
 
     const displayedCardDesc = ref(false)
 
@@ -29,7 +30,15 @@
                 </button>
             </div>
             <div v-else>
-                <input type="checkbox" name="" id="">
+                <div v-if="!present?.giver?.giverUsername">
+                    <input type="checkbox" name="" id="" @click="emit('takeThisPresent')">
+                </div>
+                <div v-if="present?.giver?.giverId === userId" @click="emit('putAPresentBackInTheList')">
+                    <input type="checkbox" name="" id="" checked>
+                </div>
+                <div else>
+                    <p>{{`Ce cadeau est pris par : ${present?.giver?.giverUsername}`}}</p>
+                </div>
             </div>
             
         </div>
@@ -37,6 +46,5 @@
             <p><b>Description:</b> {{ present.desc ? present.desc : "Aucune description" }}</p>
             <p><b>Price:</b> {{ present.price ? present.price : "Aucun prix défini" }}</p>
         </div>
-        <p v-if="!thisProfilIsCurrentUserPage">{{`Ce cadeau est pris par : `}}</p>
     </div>
 </template>

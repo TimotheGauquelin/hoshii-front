@@ -146,6 +146,22 @@
         modalDisplayer()
     }
 
+    const takeThisPresent = (userId, listId, presentId) => {
+        axiosClient(localStorage.getItem("access_token"))
+            .put(`user/${userId}/list/${listId}/present/${presentId}/takeAPresent`)
+            .then((res) => {
+                getUser(userId)
+            })  
+    }
+
+    const putAPresentBackInTheList = (userId, listId, presentId) => {
+        axiosClient(localStorage.getItem("access_token"))
+            .put(`user/${userId}/list/${listId}/present/${presentId}/putAPresentBackInTheList`)
+            .then((res) => {
+                getUser(userId)
+            })  
+    }
+
     onMounted(() => {
         getUser(paramsId.value)
     })
@@ -153,11 +169,12 @@
     watch(route, () => {
         getUser(paramsId.value)
     })
+
 </script>
 
 <template>
     <div class="overflow-none">
-    <UserCard :name=dataFromPageUser.username birthday="5 Mai 1994"/>
+    <UserCard :user=dataFromPageUser birthday="5 Mai 1994"/>
     <div 
         class="mt-2 p-2 bg-green-200 rounded" 
         :style="{height: `calc(100% - 72px`}"
@@ -180,6 +197,7 @@
                 <PresentList 
                     :userId=profil._id
                     :list=list 
+                    :dataFromPageUser=dataFromPageUser
                     :thisProfilIsCurrentUserPage="thisProfilIsCurrentUserPage" 
                     @deleteList="deleteList"
                     @deletePresent="deletePresent"
@@ -187,6 +205,8 @@
                     @displayAddPresentModal="displayAddPresentModal"
                     @displayUpdateListModal="displayUpdateListModal"
                     @displayUpdatePresentModal="displayUpdatePresentModal"
+                    @takeThisPresent="takeThisPresent"
+                    @putAPresentBackInTheList="putAPresentBackInTheList"
                 />  
             </div>  
         </div>  

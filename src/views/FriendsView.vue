@@ -10,12 +10,12 @@
     <div class="p-2 overflow-y-auto">
         <p>Ma liste d'amis :</p>
             <router-link 
-                :to="{ name:'user', params: {id :friend.friendId}}" 
+                :to="{ name:'user', params: {id :friend.id}}" 
                 :key="id"
                 v-for="(friend, id) of profil.friends"
                 class="flex p-2 mb-1 bg-green-200 rounded items-center"
             >
-                <UserCard :name="friend.friendUsername" />
+                <UserCard :user="friend" />
             </router-link>
      </div>
 </template>

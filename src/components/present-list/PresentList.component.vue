@@ -9,10 +9,11 @@
     const props = defineProps({
         userId: String,
         list: Object,
+        dataFromPageUser: Object,
         thisProfilIsCurrentUserPage: Boolean,
     }) 
 
-    const emit = defineEmits(['deleteList', "deletePresent", "displayAddListModal", "displayAddPresentModal", "displayUpdateListModal", "displayUpdatePresentModal"])
+    const emit = defineEmits(['deleteList', "deletePresent", "displayAddListModal", "displayAddPresentModal", "displayUpdateListModal", "displayUpdatePresentModal", "takeThisPresent", "putAPresentBackInTheList"])
     
     const isDisplayed = ref(false)
 
@@ -43,10 +44,13 @@
                     <div v-if="list.presents.length > 0" v-for="(present, presentIndex) of list.presents" class="bg-blue-200 mb-1 p-2" data-cy="present-component">
                         <PresentCard 
                             :thisProfilIsCurrentUserPage=thisProfilIsCurrentUserPage
+                            :userId=userId
                             :present=present
                             :list=list
                             @displayUpdatePresentModal="emit('displayUpdatePresentModal', list, presentIndex)"
                             @deletePresent="emit('deletePresent', userId, list._id, present._id)"
+                            @takeThisPresent="emit('takeThisPresent', dataFromPageUser._id, list._id, present._id)"
+                            @putAPresentBackInTheList="emit('putAPresentBackInTheList', dataFromPageUser._id, list._id, present._id)"
                         />  
                     </div>
                     <div v-else class="p-1">
