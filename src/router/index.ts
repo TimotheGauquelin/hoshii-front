@@ -5,12 +5,14 @@ import HomeView from '../views/HomeView.vue';
 import ProfilView from '../views/ProfilView.vue';
 import LogView from '../views/LogView.vue';
 import FriendsView from '../views/FriendsView.vue';
+import AddFriendsView from '../views/AddFriendsView.vue';
 
 const routes = [
     { path: '/home', component: HomeView },
     { path: '/guest', name: "guest", component: LogView },
     { path: "/user/:id", name: "user", component: ProfilView},
     { path: "/friends", name: "friends", component: FriendsView},
+    { path: "/friends/add-friends", name: "add-friends", component: AddFriendsView},
 ]
 
 export const router = createRouter({
