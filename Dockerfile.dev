@@ -1,0 +1,16 @@
+# Build de l'application Vue.JS
+FROM node:lts-alpine as build-stage
+
+LABEL description="VueJS Frontend"
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+EXPOSE 5000
+
+CMD ["npm", "run", "start"]
