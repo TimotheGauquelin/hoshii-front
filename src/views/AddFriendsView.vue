@@ -10,28 +10,40 @@
 
     const route = useRoute()
     const users = ref([])
-    const searchBarText = ref("T")
+    const searchBarText = ref("")
+
+    function updateVariable(event) {
+        searchBarText.value = event.target.value;
+    }   
+
+    console.log(searchBarText.value)
 
     const getUsers = (searchBarText) => {
+        console.log(searchBarText)
+        if(searchBarText.value !== ""){
             axiosClient(localStorage.getItem("access_token")).get(`user/allUsersButMySearchAndMeAndMyFriends/${searchBarText.value}`)
                 .then(({data}) => {
+                    console.log(searchBarText.value)
                     console.log(data)
                     users.value = data
-                })  
-        }
+                })}
+    }
 
     onMounted(() => {
-        getUsers(searchBarText)
+        if(searchBarText.value) {
+            getUsers(searchBarText.value)
+        }
     })
 
     watch(route, () => {
-        getUsers(searchBarText)
+        getUsers(searchBarText.value)
     })
 
 </script>
 <template>
-    <div>
-        <input type="text">
+    <div class="p-2 overflow-y-auto">
+        <input type="text" v-model="searchBarText" @change="updateVariable(searchBarText)" />
+        {{ searchBarText }}
         <div>
             <router-link 
             :to="{ name:'user', params: {id :user._id}}" 

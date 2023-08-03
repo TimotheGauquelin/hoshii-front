@@ -25,7 +25,7 @@
 
 <template>
             <div class="flex justify-between bg-green-200 p-2" @click="displayList" data-cy="list-tile">
-                <p data-cy="list-name">{{ props.list.label }}</p>
+                <p data-cy="list-name">Liste: {{ props.list.label }}</p>
                 <v-icon name="fa-angle-down" />
             </div>
             <div v-if="isDisplayed" class="bg-gray-300 p-1">

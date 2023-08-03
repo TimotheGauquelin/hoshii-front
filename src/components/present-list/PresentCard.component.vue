@@ -20,7 +20,7 @@
 <template>
     <div :key=present._id class="">
         <div class="flex justify-between mb-1" data-cy="present-tile">       
-            <p class="font-bold">{{ present.label }}</p>
+            <p class="font-bold">Cadeau: {{ present.label }}</p>
             <div v-if="thisProfilIsCurrentUserPage"  >
                 <button class="btn bg-yellow-300 hover:bg-yellow-400 text-white p-1 rounded mr-1" @click="emit('displayUpdatePresentModal')">
                     <v-icon name="fa-pen"/>
